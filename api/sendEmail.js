@@ -1,14 +1,10 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+
+
 const nodemailer = require('nodemailer');
 
-const app = express();
-const PORT = 3000;
 
-// Middleware
-app.use(cors());
-app.use(bodyParser.json());
+
+
 
 const generateHtmlEmail = (data) => {
     return `
@@ -30,7 +26,7 @@ const generateHtmlEmail = (data) => {
   };
   
 // Route
-app.post('/send-email', async (req, res) => {
+module.exports = async (req, res) => {
     const { name, phone, address, clients,email } = req.body;
   const htmlContent = generateHtmlEmail({ name, phone, address, clients,email });
   const transporter = nodemailer.createTransport({
@@ -55,8 +51,5 @@ app.post('/send-email', async (req, res) => {
     console.error('Error sending email:', err);
     res.status(500).send({ message: 'Failed to send email' });
   }
-});
+}
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
