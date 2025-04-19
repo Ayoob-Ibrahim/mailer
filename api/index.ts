@@ -7,7 +7,11 @@ const app = express();
 const PORT = 3000;
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:88", // replace with your frontend URL
+  })
+);
 app.use(bodyParser.json());
 
 // HTML Email Template Generator
