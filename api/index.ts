@@ -40,6 +40,7 @@ const generateHtmlEmail = (data) => {
 // Route to Send Email
 app.post("/send-email", async (req, res) => {
   const { name, phone, address, clients, email } = req.body;
+  console.log(name, phone, address, clients, email);
   const htmlContent = generateHtmlEmail({
     name,
     phone,
