@@ -10,7 +10,11 @@ const PORT = 3000;
 
 const allowCors = (fn) => async (req, res) => {
   const corsMiddleware = cors({
-    origin: ["http://localhost:88", "http://mailer-six-alpha.vercel.app"],
+    origin: [
+      "http://localhost:88",
+      "http://mailer-six-alpha.vercel.app",
+      "https://care-sync-demo.web.app",
+    ],
     methods: ["POST", "OPTIONS"],
     allowedHeaders: ["Content-Type"],
   });
