@@ -35,7 +35,7 @@ const generateHtmlEmail = (data) => {
         <h2 style="color: #4CAF50;">New Client Inquiry</h2>
         <p><strong>Name:</strong> ${data.name}</p>
         <p><strong>Contact Number:</strong> ${data.phone}</p>
-        <p><strong>Company Address:</strong> ${data.address}</p>
+        <p><strong>Company Address:</strong> sss</p>
         <p><strong>Email:</strong> ${data.email}</p>
         <p><strong>Number of Care Recipients:</strong> ${data.clients}</p>
       </div>
