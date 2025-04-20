@@ -8,13 +8,22 @@ const PORT = 3000;
 
 // Middleware
 
-app.use(
-  cors({
-    origin: "http://localhost:88",
-    methods: ["GET", "POST", "OPTIONS"],
+const allowCors = (fn) => async (req, res) => {
+  const corsMiddleware = cors({
+    origin: ["http://localhost:88", "http://mailer-six-alpha.vercel.app"],
+    methods: ["POST", "OPTIONS"],
     allowedHeaders: ["Content-Type"],
-  })
-);
+  });
+
+  return corsMiddleware(req, res, async () => {
+    if (req.method === "OPTIONS") {
+      res.status(200).end();
+      return;
+    }
+    return await fn(req, res);
+  });
+};
+
 app.use(bodyParser.json());
 
 // HTML Email Template Generator
@@ -38,7 +47,7 @@ const generateHtmlEmail = (data) => {
 };
 
 // Route to Send Email
-app.post("/send-email", async (req, res) => {
+const handler = async (req, res) => {
   const { name, phone, address, clients, email } = req.body;
   console.log(name, phone, address, clients, email);
   res.setHeader("Access-Control-Allow-Credentials", true);
@@ -83,10 +92,10 @@ app.post("/send-email", async (req, res) => {
     console.error("Error sending email:", err);
     res.status(500).send({ message: "Failed to send email" });
   }
-});
+};
 
 // Start Server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
-module.exports = app;
+module.exports = allowCors(handler);
