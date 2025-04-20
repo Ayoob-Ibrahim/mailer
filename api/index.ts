@@ -7,9 +7,12 @@ const app = express();
 const PORT = 3000;
 
 // Middleware
+
 app.use(
   cors({
-    origin: "http://localhost:88", // replace with your frontend URL
+    origin: "http://localhost:88",
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type"],
   })
 );
 app.use(bodyParser.json());
